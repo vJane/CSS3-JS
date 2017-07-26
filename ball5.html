@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+  <head>
+  	<meta charset="utf-8">
+  	<title>扔小球</title>
+  	<style>
+  	  #img1{width:0px; height:0px;position:absolute;}
+  	  .box{border:1px #000 solid; position:absolute;}
+  	</style>
+  	<script>
+  	  window.onload=function(){
+  	  	var oImg=document.getElementById('img1');
+  	    //鼠标相对于图片的距离
+  	  	var disX=0;
+  	  	var disY=0;
+        //鼠标上次的位置
+  	  	var prevX=0;
+  	  	var prevY=0;
+  	  	//图片运动xy轴的速度
+  	  	var iSpeedX=0;
+  	  	var iSpeedY=0;
+
+  	  	var timer=null;
+  	  	//图片位于屏幕正中心
+  	  	oImg.style.left=document.documentElement.clientWidth/2+'px';
+  	  	oImg.style.top=document.documentElement.clientHeight/2+'px';
+  	  	toChange(210);
+  	  	function toChange(iTarget){
+  	  		var offsetL=oImg.offsetLeft;
+  	  		var offsetT=oImg.offsetTop;
+  	  		var timer=setInterval(function(){
+  	  			if(oImg.offsetWidth==iTarget){
+  	  				clearInterval(timer);
+  	  				startMove();
+  	  			}else{
+  	  				oImg.style.width=oImg.offsetWidth+10+'px';
+  	  				oImg.style.height=oImg.offsetHeight+10+'px';
+  	  				oImg.style.left=offsetL-oImg.offsetWidth/2+'px';
+  	  				oImg.style.top=offsetT-oImg.offsetHeight/2+'px';
+  	  			}
+  	  		},30);
+  	  	}
+  	  	oImg.onmousedown=function(ev){
+  	  		var ev=ev||window.event;
+  	  		disX=ev.clientX-oImg.offsetLeft;
+  	  		disY=ev.clientY-oImg.offsetTop;
+
+  	  		prevX=ev.clientX;
+  	  		prevY=ev.clientY;
+  	  		//再次鼠标按下后清除上次定时器
+  	  		clearInterval(timer);
+  	  		document.onmousemove=function(ev){
+  	  			var ev=ev||window.event;
+  	  			//图片移动后的位置
+  	  			oImg.style.left=ev.clientX-disX+'px';
+  	  			oImg.style.top=ev.clientY-disY+'px';
+  	  			//图片移动速度的路线
+  	  			// var oBox=document.createElement('div');
+  	  			// oBox.className='box';
+  	  			// oBox.style.left=ev.clientX+'px';
+  	  			// oBox.style.top=ev.clientY+'px';
+  	  			// document.body.appendChild(oBox);
+  	  			//速度等于鼠标移动后的距离
+  	  			iSpeedX=ev.clientX-prevX;
+  	  			iSpeedY=ev.clientY-prevY;
+  	  			//move之后再记录鼠标的位置
+  	  			prevX=ev.clientX;
+  	  			prevY=ev.clientY;
+  	  		};
+  	  		document.onmouseup=function(){
+  	  			document.onmousemove=null;
+  	  			document.onmouseup=null;
+  	  			startMove();
+  	  		};
+  	  		return false;
+  	  	};
+  	  	function startMove(){
+  	  		clearInterval(timer);
+  	  		timer=setInterval(function(){
+  	  			iSpeedY+=3;
+  	  			var L=oImg.offsetLeft+iSpeedX;
+  	  			var T=oImg.offsetTop+iSpeedY;
+  	  			if(T>document.documentElement.clientHeight-oImg.offsetHeight){
+  	  				T=document.documentElement.clientHeight-oImg.offsetHeight;
+  	  				iSpeedY*=-1;
+  	  				iSpeedY*=0.75;
+  	  				iSpeedX*=0.75;
+  	  			}else if(T<0){
+  	  				T=0;
+  	  				iSpeedY*=-1;
+  	  				iSpeedY*=0.75;
+  	  			}
+  	  			if(L>document.documentElement.clientWidth-oImg.offsetWidth){
+  	  				L=document.documentElement.clientWidth-oImg.offsetWidth;
+  	  				iSpeedX*=-1;
+  	  				iSpeedY*=0.75;
+  	  			}else if(L<0){
+  	  				L=0;
+  	  				iSpeedX*=-1;
+  	  				iSpeedX*=0.75;
+  	  			}
+  	  			oImg.style.left=L+'px';
+  	  			oImg.style.top=T+'px';
+  	  		},30);
+  	  	}
+  	  };
+  	</script>
+  </head>
+  <body>
+  	<img src="images/1.jpg" id="img1">
+  </body>
+ </html>	

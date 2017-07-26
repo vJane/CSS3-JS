@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+  	<meta charset="utf-8">
+  	<title>过渡</title>
+  	<style>
+      .box{width:100px; height:100px; background:red;transition:1s all;color:#fff;}
+      .box:hover{width:200px;height:200px;background:blue;}
+      .box2{width:100px;height:100px; background: blue;transition:1s width,2s 5s height;color:#fff;}
+      .box3{width:100px; height:100px; background: red;transition:3s width cubic-bezier(0.000,1.650,0.880,1.485);color:#fff;}
+  	</style>
+  	<script>
+      window.onload=function(){
+        var oBox=document.getElementById("box2");
+        var oBox3=document.getElementById("box3");
+        oBox.onclick=function(){
+          with(this.style){
+            width="200px";
+            height="200px";
+          }
+        }
+        oBox3.onclick=function(){
+          with(this.style){
+            width="800px";
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+  	<div class="box">移上去试试看</div>
+    <div class="box2" id="box2">点击试试看</div>
+    <div class="box3" id="box3">点击试试看</div>
+  </body>
+</html>

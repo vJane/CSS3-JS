@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+		<title>飞机蜜蜂大作战</title>
+		<style>
+           *{margin:0;padding: 0;}
+           html,body{height:100%;
+           }
+           li{list-style: none;}
+           #div1{width:100%;height:100%;overflow: hidden;background:url(images/bg.png)no-repeat;background-size:100%;margin:auto;position: relative;}
+           #bg2{width:810px;height:480px;background: url(images/bg2.png)no-repeat; margin:auto;}
+           #gameBtn{
+           	color:#000;font-size: 20px; cursor: pointer; width:150px; height:50px;line-height: 50px; text-align: center;margin:auto;margin-top:10px;background:url(images/button.png)no-repeat;background-size: 100%
+           }
+           #ps{margin:auto;width:300px;height:30px;font-family: "微软雅黑"}
+           #score{color:#000;font-family: "微软雅黑"}
+           #bee{position: relative;}
+           .enemy1{width:40px;height:28px;background: url(images/bee1.png) no-repeat;background-size:100%;float: left;}
+           .enemy2{width:40px;height:28px;background: url(images/bee2.png) no-repeat;background-size:100%;float: left;}
+           .enemy3{width:40px;height:28px;background: url(images/bee3.png) no-repeat;background-size:100%;float: left;}
+           .air1{width:60px;height:60px;background: url(images/airplane.png) no-repeat;background-size:100%;position: absolute;}
+           .bullet{width:4px;overflow: hidden;height: 10px; background: url(images/bullet.png) no-repeat;background-size:100%;position: absolute;}
+		</style>
+		<script>
+          window.onload=function(){
+          	var oBtn=document.getElementById('gameBtn');//页面加载获取开始游戏的div
+          	oBtn.onclick=function(){//点击开始游戏
+          		this.style.display='none';//开始按钮消失
+              document.getElementById('bg2').style.display='none';
+              document.getElementById('ps').style.display='none';
+          		Game.init('div1');//游戏开始
+          	};
+          };
+          var Game = {
+
+          	oEnemy:{//敌人的数据
+          		e1:{style:'enemy1',blood:1,speed:5,score:1},
+          		e2:{style:'enemy2',blood:2,speed:7,score:2},
+          		e3:{style:'enemy3',blood:3,speed:10,score:3}
+          	},
+          	gk:[//关卡的数据，是个数组，有两个地图
+          	  {
+          		eMap:['e2','e2','e2','e2','e2','e2','e2','e2','e2','e2',
+          		'e2','e2','e2','e2','e2','e2','e2','e2','e2','e2',
+          		'e2','e2','e2','e2','e2','e2','e2','e2','e2','e2',
+          		'e1','e1','e1','e1','e1','e1','e1','e1','e1','e1',
+          		'e1','e1','e1','e1','e1','e1','e1','e1','e1','e1',
+          		'e1','e1','e1','e1','e1','e1','e1','e1','e1','e1'
+          		],
+          		colNum:10,
+          		iSpeedX:10,
+          		iSpeedY:10,
+          		times:2000
+          	},
+          	{
+          		eMap:['e3','e3','e3','e3','e3','e3','e3','e3','e3','e3',
+          		'e3','e3','e3','e3','e3','e3','e3','e3','e3','e3',
+          		'e3','e3','e3','e3','e3','e3','e3','e3','e3','e3',
+          		'e1','e1','e1','e1','e1','e1','e1','e1','e1','e1',
+          		'e1','e1','e1','e1','e1','e1','e1','e1','e1','e1',
+          		'e1','e1','e1','e1','e1','e1','e1','e1','e1','e1'
+          		],
+          		colNum:10,
+          		iSpeedX:10,
+          		iSpeedY:10,
+          		times:2000
+          	}
+          	],
+          	air:{
+          		//飞机的数据
+          		style:'air1',
+          		bulletStyle:'bullet'
+          	},
+          	init:function(id){
+          		//初始化
+          		this.oParent=document.getElementById(id);
+          		this.createScore();
+          		this.createEnemy(0);
+          		this.createAir();
+          	},
+          	createScore:function(){
+          		//创建积分
+          		var oS=document.createElement('div');
+          		oS.id='score';
+          		oS.innerHTML='积分：<span>0</span>分';
+          		this.oParent.appendChild(oS);
+          		this.oSNum=oS.getElementsByTagName('span')[0];//????
+          	},
+          	createEnemy:function(iNow){
+          		//创建敌人
+          		if(this.oUl){//this.oUl???长度为0
+          			this.oParent.removeChild(this.oUl);
+          			clearInterval(this.oUl.timer);
+          		}
+          		document.title='第'+(iNow+1)+'关';
+          		 var gk=this.gk[iNow];
+          		 var oUl=document.createElement('ul');
+          		this.oUl=oUl;//THIS
+          		this.aLi=null;//所有的li
+                var arr=[];//存放li的top和left
+                oUl.id='bee';
+                oUl.style.width=gk.colNum*40+'px';//oUl的宽度等于40px*10个
+                this.oParent.appendChild(oUl);
+                oUl.style.left=(this.oParent.offsetWidth-oUl.offsetWidth)/2+'px';
+                for(var i=0;i<gk.eMap.length;i++){
+                	var oLi=document.createElement('li');
+                	oLi.className=this.oEnemy[gk.eMap[i]].style;
+                	oLi.blood=this.oEnemy[gk.eMap[i]].blood;
+                	oLi.speed=this.oEnemy[gk.eMap[i]].speed;
+                	oLi.score=this.oEnemy[gk.eMap[i]].score;
+                	oUl.appendChild(oLi);
+                }
+                this.aLi=oUl.getElementsByTagName('li');
+                for(var i=0;i<this.aLi.length;i++){
+                	//存储每个li的left和top
+                	arr.push([this.aLi[i].offsetLeft,this.aLi[i].offsetTop]);
+                }
+                for(var i=0;i<this.aLi.length;i++){
+                	this.aLi[i].style.position='absolute';
+                	this.aLi[i].style.left=arr[i][0]+'px';
+                	this.aLi[i].style.top=arr[i][1]+'px';
+                }
+                this.runEnemy(gk);//开始第几关
+          	},
+          	runEnemy:function(gk){//敌人移动
+          		var This=this;
+          		var L=0;//向左移动限制
+          		var R=this.oParent.offsetWidth-this.oUl.offsetWidth;//向右移动限制
+          		this.oUl.timer=setInterval(function(){
+                      if(This.oUl.offsetLeft>R||This.oUl.offsetLeft<L){
+                      	gk.iSpeedX *=-1;
+                      	This.oUl.style.top=This.oUl.offsetTop+gk.iSpeedY+'px';
+                      }
+                      This.oUl.style.left=This.oUl.offsetLeft+gk.iSpeedX+'px';
+          		},200);
+          		setInterval(function(){
+          			This.oneMove();
+          		},gk.times);
+
+          	},
+          	oneMove:function(){
+          		//单兵作战
+          		//Math.floor向下取整,随机产生
+          		var nowLi=this.aLi[Math.floor(Math.random()*this.aLi.length)];
+          		var This=this;
+          		nowLi.timer=setInterval(function(){
+          			//a是x轴的距离，b是y轴的距离，c是蜜蜂和飞机的直线距离
+          			var a=(This.oAir.offsetLeft+This.oAir.offsetWidth/2)-(nowLi.offsetLeft+nowLi.parentNode.offsetLeft+nowLi.offsetWidth/2);
+          			var b=(This.oAir.offsetTop+This.oAir.offsetHeight/2)-(nowLi.offsetTop+nowLi.parentNode.offsetTop+nowLi.offsetHeight/2);
+          			var c=Math.sqrt(a*a+b*b);
+          			//因为x轴和y轴的距离不同，速度也不同
+          			var sX=nowLi.speed*a/c;
+          			var sY=nowLi.speed*b/c;
+          			nowLi.style.left=nowLi.offsetLeft+sX+'px';
+          			nowLi.style.top=nowLi.offsetTop+sY+'px';
+          			if(This.pz(This.oAir,nowLi)){
+          				alert('游戏结束');
+          				window.location.reload();
+          			}
+          		},30);
+          	},
+          	createAir:function(){
+          		//创建飞机
+          		var oAir=document.createElement('div');
+          		oAir.className=this.air.style;
+          		this.oAir=oAir;//THIS
+          		this.oParent.appendChild(oAir);
+          		oAir.style.left=(this.oParent.offsetWidth-oAir.offsetWidth)/2+'px';
+          		oAir.style.top=this.oParent.offsetHeight-oAir.offsetHeight+'px';
+          		this.bindAir();
+          	},
+            bindAir:function(){
+            	//操作飞机
+            	var timer=null;//飞机连续移动定时器
+            	var iNum=0;//飞机左移还是右移
+            	var This=this;
+            	document.onkeydown=function(ev){
+            		//ev是接受的键值
+            		var ev=ev||window.event;////兼容IE和FireFox Chrome 只要一个为真就可以执行
+            		if(!timer){//如果timer不为null
+                      timer=setInterval(show,30);
+            		}
+            		if(ev.keyCode==37){
+            			iNum=1;
+            		}else if(ev.keyCode==39){
+            			iNum=2;
+            		}
+            	};
+            	document.onkeyup=function(ev){
+            		var ev=ev||window.event;
+            		clearInterval(timer);
+            		timer=null;
+            		iNum=0;
+            		if(ev.keyCode==32){
+            			This.createBullet();
+            		}
+            	};
+            	function show(){
+                  if(iNum==1){
+                  	This.oAir.style.left=This.oAir.offsetLeft-10+'px';
+                  }else if(iNum==2){
+                  	This.oAir.style.left=This.oAir.offsetLeft+10+'px';
+                  }
+            	}
+            },
+            createBullet:function(){
+            	//创建子弹
+            	var oB=document.createElement('div');
+            	oB.className=this.air.bulletStyle;
+            	this.oParent.appendChild(oB);
+            	//子弹的left是飞机的left+飞机宽度一半
+            	oB.style.left=this.oAir.offsetLeft+this.oAir.offsetWidth/2+'px';
+            	oB.style.top=this.oAir.offsetTop-10+'px';
+            	this.runBullet(oB);
+            },
+            runBullet:function(oB){
+            	//子弹移动
+            	var This=this;//This
+            	//定时器设定子弹的高度，当超出屏幕，清除定时器，移除子弹
+            	oB.timer=setInterval(function(){
+            		var T=oB.offsetTop-10;
+            		if(T<-10){
+                      clearInterval(oB.timer);
+                      This.oParent.removeChild(oB);
+            		}else{
+            			oB.style.top=T+'px';
+            		}
+            		//进行碰撞检测，当子弹打中蜜蜂，蜜蜂剩一滴血时，清除这个蜜蜂的定时器，加上相应积分，清除这个蜜蜂
+            		for(var i=0;i<This.aLi.length;i++){
+            			if(This.pz(oB,This.aLi[i])){
+            				if(This.aLi[i].blood==1){
+            					clearInterval(This.aLi[i].timer);
+            					This.oSNum.innerHTML=parseInt(This.oSNum.innerHTML)+This.aLi[i].score;
+            					This.oUl.removeChild(This.aLi[i]);
+            				}else{
+            					This.aLi[i].blood--;
+            				}
+            				This.oParent.removeChild(oB);
+            				clearInterval(oB.timer);
+            			}
+            		}
+            		//当蜜蜂消灭光，进入第二关
+            		if(!This.aLi.length){
+            			This.createEnemy(1);
+            			//第二关结束了呢？多张地图用变量呢？？
+            		}
+            	},30);
+            },
+            pz:function(obj1,obj2){
+            	//碰撞检测
+            	//L1是子弹的left,R1是子弹的right,T1是top，B1是botton
+            	var L1=obj1.offsetLeft;
+            	var R1=obj1.offsetLeft+obj1.offsetWidth;
+            	var T1=obj1.offsetTop;
+            	var B1=obj1.offsetTop+obj1.offsetHeight;
+            	var L2=obj2.offsetLeft+obj2.parentNode.offsetLeft;
+            	var R2=obj2.offsetLeft+obj2.offsetWidth+obj2.parentNode.offsetLeft;
+            	var T2=obj2.offsetTop+obj2.parentNode.offsetTop;
+            	var B2=obj2.offsetTop+obj2.offsetHeight+obj2.parentNode.offsetTop;
+            	if(R1<L2||L1>R2||T1>B2||B1<T2){
+            		return false;
+            	}else{
+            		return true;
+            	}
+            }
+          };
+		</script>
+	</head>
+	<body>
+		<div id="div1">
+      <div id="bg2"></div>
+			<div id="gameBtn">开始游戏</div>
+      <div id="ps">提示：空格发射子弹，左右键移动飞机</div>
+		</div>
+	</body>
+</html>

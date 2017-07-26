@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+  	<meta charset="utf-8">
+  	<style>
+      nav{
+      	width:80%;
+      	margin:auto;
+      	position: relative;
+      }
+      ul{
+        margin: auto;
+        /*border: 1px solid black;*/
+        position: relative;
+      }
+      li{
+      	display:block;
+      	float: left;
+      	text-align: center;
+      	cursor: pointer;
+      	border: 1px solid black;
+      }
+      .zul{display: none;
+        position: absolute;      
+          left: 0;
+        top: 50px;
+      }
+      .zul li{
+      }
+
+      ul li:hover .zul{
+      	display: block;
+      }
+  	</style>
+  </head>
+  <body>
+  	<nav>
+  		<ul class="ful">
+  			<li>HOME</li>
+  			<li>NEWS
+              <ul class="zul">
+              	<li>old news</li>
+              	<li>lastest news</li>
+              	<li>fashion news</li>
+              </ul>
+  			</li>
+  			<li>SPORTS
+              <ul class="zul">
+              	<li>basketball</li>
+              	<li>football</li>
+              	<li>baseball</li>
+              </ul>
+  			</li>
+  			<li>ABOUT</li>
+  		</ul>
+  	</nav>
+  </body>
+</html>

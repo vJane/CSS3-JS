@@ -1,0 +1,29 @@
+﻿<!doctype html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <title>笔记</title>
+	</head>
+	<body>    
+		1.单体的写法： 大的JSON ，有命名空间，冲突就会降低<br>
+		var json = {
+			a : 10,
+			b : function(){
+				this.a
+			}
+		};
+		json.a<br>
+		2.数据与逻辑分离：各个功能模块分开写<br>
+		3.关卡的设计及数据的关联：一关结束进入下一关<br>
+		4.init初始化生成元素<br>
+		5.敌人的整体移动<br>
+		6.布局转换（浮动转定位）：将每个li的位置保存下来，变成绝对定位<br>
+		7.飞机移动（键盘事件加流畅移动）：鼠标按下启动定时器，提起清除定时器<br>
+		8.子弹的射击与销毁<br>
+		9.碰撞检测 （看两个物体有没有碰上）<br>
+		10.敌人追踪（速度的分解算法）<br>
+		11.积分、血量、随机等其他功能<br>
+		12.会在一些小的细节出问题，最大的问题是搞不懂This<br>
+		附：刘哇勇的博客<a href="http://www.cnblogs.com/Wayou/p/all-this.html">点此进入</a><br>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+  <head>
+  	<meta charset="utf-8">
+  	<style>
+  	  *{margin:0;padding:0;}
+  	  html,body{height: 100%;}
+      #box{width:100%;height:100%;overflow: hidden;position: relative;}
+      #section{width: 100%;position: absolute;transition:1s top ease-in-out;}
+      #section li{width:100%;display: block;overflow: hidden;position: relative;}
+      .aside{position: fixed;right:0;top:0;z-index: 10;width: 50px;text-align: center;height: 100%;}
+      .oUl{width: 100%;height: 100px;margin: auto;top:30%; position: absolute;}
+      .oUl li{display: block;width:15px;height:15px;border-radius: 50%;margin:auto;position: relative;margin-top: 10px;border: 1px solid #f60;background: #fff;}
+      .active{background: #f60 !important;border: 1px solid #fff !important;}
+      .opa{width: 100%;height: 100%;position: absolute;background: #000;opacity:0.5;left: 0;top: 0;}
+      .opa1{width: 100%;height: 215px;position: absolute;background: #000;opacity:0.4;left: 0;top: 0; transition:0.5s all ease-in-out;}
+      .homework{font-size: 80px; position: relative; color: white;text-indent: 2em;font-family:'Arial';margin-top: 10%;}
+      .vivian{font-size: 20px;font-family: 'Bradley Hand ITC';color: white;position: relative;text-align: right;margin-top: 10%; margin-right: 100px;}
+      .dir{width:100%;height: 70px;line-height: 70px;text-align: center;position: absolute;bottom:0;margin: auto;}
+      .dir #prevS1,.dir #prevS2,.dir #prevS3{float: left;margin-left:45%;background: url("images/minePrev.png")no-repeat;height: 50px;width: 50px;}
+      .dir #nextS1,.dir #nextS2,.dir #nextS3{float: right;margin-right: 45%;background: url("images/mineNext.png")no-repeat;height: 50px;width: 50px;}
+      #prevS1:hover,#prevS2:hover,#prevS3:hover{background: url("images/minePrev2.png")no-repeat;}
+      #nextS1:hover,#nextS2:hover,#nextS3:hover{background: url("images/mineNext2.png")no-repeat;}
+      .workBox{width: 80%;margin:auto;}
+      .work{width:230px;height:245px;float:left;margin-left:30px;margin-top:20px; box-shadow:1px 1px 10px #666;line-height: 30px;background:#fafafa;position: relative;}
+      .note,.time{text-align: center;height: 30px;line-height: 30px}
+      .note{font-family: 'Bradley Hand ITC';font-size: 20px;}
+      .note a:link,.note a:visited{text-decoration: none;}
+      .note a:hover{text-decoration:underline;}
+      .note a:active{text-decoration: none;}
+      .img a:link,.img a:visited,.img a:hover,.img a:active{text-decoration: none;}
+      .time{background:#FCE5A7;}
+      .img{width:100%;height:185px;text-align:center;overflow:hidden;position: relative;}
+      .img img{width:100%;}
+      .work:hover .opa1{height:0; }
+  	</style>
+  	<script>
+      window.onload=function(){
+        var section1=document.getElementById("section");
+        var sectionLi=section1.getElementsByTagName("li");
+        var oUl=document.getElementById("oUl");
+        var oLi=oUl.getElementsByTagName("li");
+        var iHeight=document.body.offsetHeight;
+        var iNow=0;
+        section1.style.height=iHeight*oLi.length+"px";
+        section1.style.top="0px";
+        for(var i=0;i<oLi.length;i++){
+        	oLi[i].index=i;
+        	sectionLi[i].style.height=iHeight+"px";
+        	oLi[i].onclick=function(){
+        		for(var j=0;j<oLi.length;j++){
+        			oLi[j].className="";
+        		}
+                oLi[this.index].className="active";
+                section1.style.top=-iHeight*this.index+"px";
+                iNow=this.index;
+        	}
+        }
+        var prevS;
+        var nextS;
+        for(var i=1;i<oLi.length;i++){
+        	prevS=document.getElementById("prevS"+i);
+            nextS=document.getElementById("nextS"+i);
+            prevS.onclick=function(){
+	        	section1.style.top=iHeight*(-iNow+1)+"px";
+	        	for(var j=0;j<oLi.length;j++){
+	        			oLi[j].className="";
+	        		}
+	        	oLi[--iNow].className="active";
+	        }
+	        nextS.onclick=function(){
+	        	section1.style.top=-iHeight*(iNow+1)+"px";
+	        	for(var j=0;j<oLi.length;j++){
+	        			oLi[j].className="";
+	        		}
+	        	oLi[++iNow].className="active";
+	        }
+        }
+      }
+  	</script>
+  </head>
+  <body>
+  	<div id="box">
+  		<ul id="section">
+  			<li style="background:url(images/minebg.jpg)no-repeat;background-size: 100%;">
+	  			<div class="opa"></div>
+		    	<p class="homework">HOMEWORK</p>
+		    	<p class="vivian">BY: Vivian ^O^ </p>
+		    	<div class="dir">
+		    		<div id="nextS1">
+		    		</div>
+		    	</div>
+	    	</li>
+  			<li style="background:lightblue">
+  			  <div class="workBox">
+	  			<div class="work">
+					<div class="img"><br>
+					<a href="lb1.html">轮播效果1</a>
+					<a href="lb2.html">轮播效果2</a><br>
+					<a href="lb3.html">轮播效果3</a>
+					<a href="lb4.html">轮播效果4</a><br>
+	                <a href="lb5.html">轮播效果5</a>
+					<a href="lb6.html">轮播效果6</a><br>
+					<a href="lb7.html">轮播效果7</a>
+					<a href="lb8.html">轮播效果8</a><br>
+					</div>
+					<div class="note"><a href="lbNote.html">Notes</a></div>
+					<div class="time">时间2016/1/30</div>
+					<div class="opa1"></div>
+				</div>
+				<div class="work">
+					<div class="img"><a href="transition5.html"><img src="images/work4.png"></a></div>
+					<div class="note"><a href="tranNote2.html">Notes</a></div>
+					<div class="time">时间2016/1/29</div>
+					<div class="opa1"></div>
+				</div>
+				<div class="work">
+					<div class="img">
+					<a href="3dImages1.html">3D翻转原理</a>
+					<a href="3dImages2.html"><img src="images/work3.png"></a></div>
+					<div class="note"><a href="3DNote.html">Notes</a></div>
+					<div class="time">时间2016/1/28</div>
+					<div class="opa1"></div>
+				</div>
+				<div class="work">
+					<div class="img"><br>
+					<a href="transition1.html">CSS3过渡效果1</a><br>
+					<a href="transition2.html">CSS3过渡效果2</a><br>
+					<a href="transition3.html">CSS3过渡效果3</a><br>
+					<a href="transition4.html">CSS3过渡效果4</a><br></div>
+					<div class="note"><a href="transitionNote.html">Notes</a></div>
+					<div class="time">时间2016/1/27</div>
+					<div class="opa1"></div>
+				</div>
+				<div class="work">
+					<div class="img"><Br>
+					<a href="ball.html">拖拽足球</a><br>
+					<a href="ball2.html">足球滚动</a><br>
+					<a href="ball3.html">拖拽改变图层大小</a><br>
+					<a href="ball4.html">自由落体</a><br>
+					<a href="ball5.html">跳动的足球</a></div>
+					<div class="note"></div>
+					<div class="time">时间2016/1/26</div>
+					<div class="opa1"></div>
+				</div>
+				<div class="work">
+					<div class="img"><a href="pushBox.html"><img src="images/work2.png"></a></div>
+					<div class="note"><a href="pushBoxNote.html">Notes</a></div>
+					<div class="time">时间2016/1/25</div>
+					<div class="opa1"></div>
+				</div>
+				<div class="work">
+					<div class="img">
+					  <a href="bee.html"><img src="images/work1.png"></a>
+					</div>
+					<div class="note"><a href="beeNote.html">Notes</a></div>
+					<div class="time">时间2016/1/24</div>
+				    <div class="opa1"></div>
+				</div>
+				</div>
+  				<div class="dir">
+		    		<div id="prevS1">
+		    		</div>
+		    		<div id="nextS2">
+		    		</div>
+		    	</div>
+  			</li>
+  			<li style="background:#f60">
+  			    <p class="homework">NEED TIME TO CONTINUE</p>
+  				<div class="dir">
+		    		<div id="prevS2">
+		    		</div>
+		    		<div id="nextS3">
+		    		</div>
+		    	</div>
+  			</li>
+  			<li style="background:lightyellow">
+  			    <p class="homework" style="color:black;">NOT THE END...</p>
+  				<div class="dir">
+		    		<div id="prevS3">
+		    		</div>
+		    	</div>
+  			</li>
+  		</ul>
+	  	 	
+  	</div>
+  	<div class="aside">
+	  	<ul class="oUl" id="oUl">
+	  		<li class="active"></li>
+	  		<li></li>
+	  		<li></li>
+	  		<li></li>
+	  	</ul>
+	</div> 
+  </body>
+</html>

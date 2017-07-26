@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <head>
+  	<meta charset="utf-8">
+  	<title>过渡效果2</title>
+  	<style>
+      .box{width:100px;height:100px;padding:100px;border:2px solid #000;transform-style:preserve-3d;perspective:100px;text-align: center; color: #fff;float: left;}
+      .div,.div1,.div2{width:100px;height:100px;background: red;transition:1s all ease;}
+      .box:hover .div{transform:rotateX(50deg);}
+      .box:hover .div1{transform:rotateY(50deg);}
+      .box:hover .div2{transform:translateZ(-100px);}
+  	</style>
+  	<script></script>
+  </head>
+  <body>
+  	<div class="box">
+  		<div class="div">沿X轴翻转</div>
+  	</div>
+  	<div class="box">
+  		<div class="div1">沿Y轴翻转</div>
+  	</div>
+  	<div class="box">
+  		<div class="div2">沿Z轴平移</div>
+  	</div>
+  </body>
+</html>

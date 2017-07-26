@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+  	<meta charset="utf-8">
+  	<title>过渡效果3</title>
+  	<style>
+      .wrap{width:200px;height:200px;padding:200px;border:2px solid #000;-webkit-perspective:800px;-moz-perspective:800px;-o-perspective:800px;perspective:800px;}
+      .box{width:200px;height:200px;position:relative;transform-style:preserve-3d;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-o-transform-style:preserve-3d;transition:1s all;}
+      .box div{width:200px;height:200px;position:absolute;font-size: 100px;color:#fff;line-height: 200px;text-align: center;}
+      .box div:nth-of-type(1){background:red;left:0;top:-200px;transform-origin:bottom;transform:translateZ(100px) rotateX(90deg);-webkit-transform-origin:bottom;-webkit-transform:translateZ(100px) rotateX(90deg);-moz-transform-origin:bottom;-moz-transform:translateZ(100px) rotateX(90deg);-o-transform-origin:bottom;-o-transform:translateZ(100px) rotateX(90deg);}
+      .box div:nth-of-type(2){background:yellow;left:-200px;top:0;transform-origin:right;transform:translateZ(100px) rotateY(-90deg);-webkit-transform-origin:right;-webkit-transform:translateZ(100px) rotateY(-90deg);-moz-transform-origin:right;-moz-transform:translateZ(100px) rotateY(-90deg);-o-transform-origin:right;-o-transform:translateZ(100px) rotateY(-90deg);}
+      .box div:nth-of-type(3){background:blue;left:0;top:0;transform:translateZ(100px);-webkit-transform:translateZ(100px);-moz-transform:translateZ(100px);-o-transform:translateZ(100px);}
+      .box div:nth-of-type(4){background:pink;left:200px;top:0;transform-origin:left;transform:translateZ(100px) rotateY(90deg);-webkit-transform-origin:left;-webkit-transform:translateZ(100px) rotateY(90deg);-moz-transform-origin:left;-moz-transform:translateZ(100px) rotateY(90deg);-o-transform-origin:left;-o-transform:translateZ(100px) rotateY(90deg);}
+      .box div:nth-of-type(5){background:green;left:0;top:200px;transform-origin:top;transform:translateZ(100px) rotateX(-90deg);-webkit-transform-origin:top;-webkit-transform:translateZ(100px) rotateX(-90deg);-moz-transform-origin:top;-moz-transform:translateZ(100px) rotateX(-90deg);-o-transform-origin:top;-o-transform:translateZ(100px) rotateX(-90deg);}
+      .box div:nth-of-type(6){background:#f60;left:0;top:0;transform:translateZ(-100px) rotateX(180deg);-webkit-transform:translateZ(-100px) rotateX(180deg);-moz-transform:translateZ(-100px) rotateX(180deg);-o-transform:translateZ(-100px) rotateX(180deg);}
+      .wrap:hover .box{transform:rotateX(180deg);}
+  	</style>
+  	<script></script>
+  </head>
+  <body>
+  	<div class="wrap">
+  		<div class="box">
+  			<div>1</div>
+  			<div>2</div>
+  			<div>3</div>
+  			<div>4</div>
+  			<div>5</div>
+  			<div>6</div>
+  		</div>
+  	</div>
+  </body>
+</html>

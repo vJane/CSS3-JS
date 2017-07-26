@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			li{ list-style:none; float:left; margin:5px; border:2px #000 solid; width:200px;}
+			li img{ width:200px;}
+			#div1{ width:600px; height:400px; border:2px #000 solid; clear:both;}
+			p{ height:20px; border-bottom:1px #000 dashed;}
+			.box1{ width:200px; float:left;}
+			.box2{ width:200px; float:left;}
+			.box3{ width:200px; float:left;}
+			#allMoney{ float:right;}
+		</style>
+		<script>
+            window.onload=function(){
+            	
+            	var oDiv=document.getElementById('div1');
+            	var aLi = document.getElementsByTagName('li');
+            	var obj={};
+            	var oMoney=null;
+            	var iNum=0;
+
+            	for(var i=0;i<aLi.length;i++){
+            		aLi[i].ondragstart=function(ev){
+            			var aP=this.getElementsByTagName('p');
+            			ev.dataTransfer.setData('title',aP[0].innerHTML);
+            			ev.dataTransfer.setData('money',aP[1].innerHTML);
+            			ev.dataTransfer.setDragImage(this,0,0);
+            		}
+            	}
+            	oDiv.ondragover=function(ev){
+            		ev.preventDefault();
+            	}
+            	oDiv.ondrop=function(ev){
+            		var title=ev.dataTransfer.getData('title');
+            		var money=ev.dataTransfer.getData('money');
+            		if(!obj[title]){
+            			var oP=document.createElement('p');
+            			var oSpan=document.createElement('span');
+            			oSpan.innerHTML=1;
+            			oSpan.className='box1';
+            			oP.appendChild(oSpan);
+            			var oSpan=document.createElement('span');
+            			oSpan.innerHTML=title;
+            			oSpan.className='box2';
+            			oP.appendChild(oSpan);
+            			var oSpan=document.createElement('span');
+            			oSpan.innerHTML=money;
+            			oSpan.className='box3';
+            			oP.appendChild(oSpan);
+            			oDiv.appendChild(oP);
+            			obj[title]=1;
+            		}else{
+            			var aBox1=document.getElementsByClassName('box1');
+            			var aBox2=document.getElementsByClassName('box2');
+            			for(var i=0;i<aBox2.length;i++){
+            				if(aBox2[i].innerHTML==title){
+            					aBox1[i].innerHTML=parseInt(aBox1[i].innerHTML)+1;
+            				}
+            			}
+            		}
+            		ev.preventDefault();
+            		if(!oMoney){
+            			oMoney=document.createElement('div');
+            			oMoney.id='allMoney';
+            		}
+            		iNum+=parseInt(money);
+            		oMoney.innerHTML=iNum+'￥';
+            		oDiv.appendChild(oMoney);
+            	}
+
+            }
+		</script>
+	</head>
+	<body>
+		<ul id="ul1">
+			<li draggable="true">
+		    	<img src="img1.jpg" />
+		        <p>javascript精粹</p>
+		        <p>40￥</p>
+		    </li>
+		    <li draggable="true">
+		    	<img src="img2.jpg" />
+		        <p>javascript权威指南</p>
+		        <p>120￥</p>
+		    </li>
+		    <li draggable="true">
+		    	<img src="img3.jpg" />
+		        <p>精通javascript</p>
+		        <p>35￥</p>
+		    </li>
+		    <li draggable="true">
+		    	<img src="img4.jpg" />
+		        <p>DOM编程艺术</p>
+		        <p>45￥</p>
+		    </li>
+		</ul>
+		<div id="div1"></div>
+	</body>
+</html>

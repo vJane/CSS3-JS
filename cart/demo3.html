@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			li{list-style:none;width:200px; height:200px; margin:35px; float:left;}
+			#div1{width:200px; height:200px; background: red;margin: 100px;}
+			li img{width:200px;}
+		</style>
+		<script>
+            window.onload=function(){
+            	
+            	var oDiv=document.getElementById('div1');
+            	var oUl=document.getElementById('ul1');
+
+
+            	oDiv.ondragenter=function(){
+            		this.innerHTML='可以释放';
+            	}
+            	oDiv.ondragover=function(ev){
+            		//只有加阻止默认事件才可以出发drop
+            		ev.preventDefault();
+            	}
+            	oDiv.ondragleave=function(){
+            		this.innerHTML='请拖拽到此区域';
+            	}
+            	oDiv.ondrop=function(ev){
+            		//alert(123)
+            		ev.preventDefault();
+            		var fs=ev.dataTransfer.files;
+            		for(var i=0;i<fs.length;i++){
+            			var fr=new FileReader();
+            			if(fs[i].type.indexOf('image')!=-1){
+            				fr.readAsDataURL(fs[i]);
+            				fr.onload=function(){
+            					var oLi=document.createElement('li');
+            					var oImg=document.createElement('img');
+            					oImg.src=this.result;
+            					oLi.appendChild(oImg);
+            					oUl.appendChild(oLi);
+            				};
+            			}else{
+            				alert('请拖拽图片格式');
+            			}
+            		}
+            	}
+            }
+		</script>
+	</head>
+	<body>
+		<div id="div1">请拖拽到此区域</div>
+		<ul id="ul1"></ul>
+	</body>
+</html>

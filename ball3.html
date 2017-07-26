@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+  	<meta charset="utf-8">
+  	<title>拖拽</title>
+  	<style>
+  	  #div1{width:200px;height:200px;background-color: lightblue;position:absolute;}
+  	  #div2{width:30px;height:30px; background: lightyellow;position: absolute;right:0;bottom:0;}
+  	</style>
+  	<script>
+      window.onload=function(){
+      	var oDiv=document.getElementById("div1");
+      	var oDiv2=document.getElementById("div2");
+      	var disX=0;//鼠标的x轴
+      	var disY=0;//鼠标的y轴
+      	var disW=0;//大div的x轴
+      	var disH=0;//大div的y轴
+      	oDiv2.onmousedown=function(ev){
+      		var ev=ev||window.event;
+      		disX=ev.clientX;
+      		disY=ev.clientY;
+      		disW=oDiv.offsetWidth;
+      		disH=oDiv.offsetHeight;
+      		document.onmousemove=function(ev){
+      			var ev=ev||window.event;
+      			//现在大DIV的宽和高
+      			var W=ev.clientX-disX+disW;
+      			var H=ev.clientY-disY+disH;
+      			if(W<100){
+      				W=100;
+      			}
+      			if(H<100){
+      				H=100;
+      			}
+      			oDiv.style.width=W+'px';
+      			oDiv.style.height=H+'px';
+      		};
+      		document.onmouseup=function(){
+      			document.onmousemove=null;
+      			document.onmouseup=null;
+      		};
+      	};
+      };
+  	</script>
+  </head>
+  <body>
+  	<div id="div1">
+  		<div id="div2"></div>
+  	</div>
+  </body>
+ </html>

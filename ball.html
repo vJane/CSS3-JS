@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  	<title>拖拽足球1</title>
+  	<style>
+      #div1{width:210px; height:210px;background:url(images/1.jpg)no-repeat;position:absolute;}
+  	</style>
+  	<script>
+      //拖拽的三大事件：onmousedown onmousemove onmouseup
+      window.onload=function(){
+      	var oDiv=document.getElementById('div1');
+      	var disX=0;
+      	var disY=0;
+      	oDiv.onmousedown=function(ev){
+      		var ev=ev||window.event;
+      		//鼠标位于div的位置
+      		disX=ev.clientX-oDiv.offsetLeft;
+      		disY=ev.clientY-oDiv.offsetTop;
+      		//全局捕获，生成一个透明的层，防止与选中的文字冲突
+      		if(oDiv.setCapture){
+      			oDiv.setCapture();
+      		}
+      		document.onmousemove=function(ev){
+      			var ev=ev||window.event;
+      			oDiv.style.left=ev.clientX-disX+'px';
+      			oDiv.style.top=ev.clientY-disY+'px';
+      		};
+      		document.onmouseup=function(){
+      			//清除onmousemove
+      			document.onmousemove=null;
+      			//把自己的事件也清除
+      			document.onmouseup=null;
+      			//释放全局捕获
+      			if(oDiv.releaseCapture){
+      				oDiv.releaseCapture();
+      			}
+      		};
+      		//组织默认事件,因为浏览器自带的选中图片的事件
+      		return false;
+      	}
+      }
+  	</script>
+  </head>
+  <body>
+  	<div id="div1"></div>
+  </body>
+</html>

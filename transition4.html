@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+  	<meta charset="utf-8">
+  	<title>过渡效果4</title>
+  	<style>
+      .wrap{width:200px;height:200px;padding:200px;border:2px solid #000;perspective:800px;-webkit-perspective:800px;-moz-perspective:800px;-o-perspective:800px;}
+      .box{width:200px;height:200px;position:relative;transform-style:preserve-3d;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-o-transfrom-style:preserve-3d; transition:1s all;transform:translateZ(-100px) rotate(0deg);-webkit-transform:translateZ(-100px) rotate(0deg);-moz-transform:translateZ(-100px) rotate(0deg);-o-transform:translateZ(-100px) rotate(0deg);}
+      .box div{width:200px;height:200px;position:absolute;font-size: 100px;color:#fff;line-height:200px;text-align: center;left:0;top:0;}
+      .box div:nth-of-type(1){background:red;transform:translateZ(100px);-webkit-transform:translateZ(100px);-moz-transform:translateZ(100px);-o-transform:translateZ(100px);}
+      .box div:nth-of-type(2){background:yellow; transform-origin:top;transform:translateZ(-100px) rotateX(90deg);-webkit-transform-origin:top;-webkit-transform:translateZ(-100px) rotateX(90deg);-moz-transform-origin:top;-moz-transform:translateZ(-100px) rotateX(90deg);-o-transform-origin:top;-o-transform:translateZ(-100px) rotateX(90deg);}
+      .box div:nth-of-type(3){background:blue;transform:translateZ(-100px) rotateX(180deg);-webkit-transform:translateZ(-100px) rotateX(180deg);-moz-transform:translateZ(-100px) rotateX(180deg);-o-transform:translateZ(-100px) rotateX(180deg);}
+      .box div:nth-of-type(4){background:pink;transform-origin:bottom;transform:translateZ(-100px) rotateX(-90deg);-webkit-transform-origin:bottom;-webkit-transform:translateZ(-100px) rotateX(-90deg);-moz-transform-origin:bottom;-moz-transform:translateZ(-100px) rotateX(-90deg);-o-transform-origin:bottom;-o-transform:translateZ(-100px) rotateX(-90deg);}
+      .wrap:hover .box{transform:translateZ(-100px) rotateX(-270deg);-webkit-transform:translateZ(-100px) rotateX(-270deg);-moz-transform:translateZ(-100px) rotateX(-270deg);-o-transform:translateZ(-100px) rotateX(-270deg);}
+  	</style>
+  	<script></script>
+  </head>
+  <body>
+  	<div class="wrap">
+  		<div class="box">
+  			<div>1</div>
+  			<div>2</div>
+  			<div>3</div>
+  			<div>4</div>
+  		</div>
+  	</div>
+  </body>
+</html>
